@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Đặt Hàng Mỹ Phẩm & Voucher - GLOW BEAUTY COSMETICS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">✨</div>
+                <div class="brand-text">
+                    <h2>GLOW BEAUTY</h2>
+                    <span>Mỹ Phẩm Trực Tuyến</span>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <span class="nav-category">QUY TRÌNH MUA HÀNG</span>
+                <button class="nav-item active" data-tab="order">
+                    <span class="nav-icon">💄</span>
+                    <span class="nav-label">1. Đặt Hàng Mỹ Phẩm</span>
+                    <span class="badge badge-purple">45 Tests</span>
+                </button>
+                <button class="nav-item" data-tab="voucher">
+                    <span class="nav-icon">🌸</span>
+                    <span class="nav-label">2. Voucher Làm Đẹp</span>
+                    <span class="badge badge-cyan">18 Tests</span>
+                </button>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="system-status">
+                    <span class="status-dot"></span>
+                    <span>System Status: <b>63/63 Passed</b></span>
+                </div>
+                <small>BDD • Clean Architecture • DDD</small>
+            </div>
+        </aside>
+
+        <!-- MAIN VIEW -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="page-title">
+                    <span class="crumb">Báo Cáo Cuối Kỳ • Website Bán Mỹ Phẩm Trực Tuyến Glow Beauty</span>
+                    <h1 id="header-title">Quy Trình Mua Mỹ Phẩm & Thanh Toán</h1>
+                </div>
+                <div class="user-chip">
+                    <div class="avatar">GB</div>
+                    <div>
+                        <strong>Khách Hàng Thân Thiết</strong>
+                        <small>Customer: CUS-01</small>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <!-- ============================================== -->
+                <!-- TAB 1: ĐẶT HÀNG (PLACE ORDER) -->
+                <!-- ============================================== -->
+                <section id="order-panel" class="tab-panel active">
+                    <div class="banner">
+                        <div class="banner-content">
+                            <span class="banner-badge">FEATURE: PLACING ORDERS • COSMETICS SHOP</span>
+                            <h2>Đặt hàng mỹ phẩm chính hãng, kiểm tra tồn kho & giao hàng tận nơi</h2>
+                            <p>Hệ thống tự động kiểm tra giỏ hàng mỹ phẩm, quyền sở hữu, tồn kho tại quầy, tính phí vận chuyển (Freeship từ 500k cho đơn mỹ phẩm), kiểm soát hạn mức COD 20 triệu và chuyển đổi trạng thái đơn sang PAID.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid-layout">
+                        <!-- Cột trái: Form đặt hàng -->
+                        <div class="card form-card">
+                            <div class="card-header">
+                                <h3>💄 Giỏ Hàng & Thông Tin Đặt Mua</h3>
+                                <span class="tag">Beauty Checkout</span>
+                            </div>
+
+                            <form id="order-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Mã khách hàng</label>
+                                        <input type="text" id="order-customer-id" value="CUS-01" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mã giỏ hàng (Cart ID)</label>
+                                        <input type="text" id="order-cart-id" value="CART-01" required>
+                                    </div>
+                                </div>
+
+                                <div class="section-divider">
+                                    <span>🧴 Danh Sách Mỹ Phẩm Chọn Mua</span>
+                                    <button type="button" id="btn-add-item" class="btn-sm">+ Thêm Mỹ Phẩm</button>
+                                </div>
+
+                                <div id="order-items-list" class="items-list">
+                                    <!-- Rendered dynamically -->
+                                </div>
+
+                                <div class="section-divider">
+                                    <span>🚚 Thông Tin Giao Hàng</span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Tên người nhận</label>
+                                    <input type="text" id="ship-name" value="Nguyễn Văn A" placeholder="VD: Nguyễn Văn A" required>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Số điện thoại (10 chữ số, bắt đầu bằng 0)</label>
+                                        <input type="text" id="ship-phone" value="0912345678" placeholder="VD: 0912345678" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phương thức thanh toán</label>
+                                        <select id="payment-method">
+                                            <option value="COD">COD (Thanh toán khi nhận hàng, max 20tr)</option>
+                                            <option value="BANK_TRANSFER" selected>Chuyển khoản ngân hàng (Không giới hạn)</option>
+                                            <option value="E_WALLET">Ví điện tử MoMo / ZaloPay</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Địa chỉ nhận hàng</label>
+                                    <input type="text" id="ship-address" value="12 Nguyễn Huệ, Quận 1, TP.HCM" placeholder="VD: 12 Nguyễn Huệ..." required>
+                                </div>
+
+                                <div class="section-divider">
+                                    <span>🏷️ Mã Giảm Giá Đã Áp Dụng (Nếu có)</span>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label>Mã Voucher</label>
+                                        <input type="text" id="order-voucher-code" placeholder="Để trống nếu không dùng (hoặc SALE10, BIGSALE)">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Số tiền giảm khai báo (VNĐ)</label>
+                                        <input type="number" id="order-voucher-discount" value="0" min="0">
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-primary" id="btn-submit-order">
+                                        <span>Xác Nhận Đặt Hàng</span>
+                                        <span class="arrow">→</span>
+                                    </button>
+                                    <button type="button" class="btn-secondary" id="btn-reset-order">Reset Dữ Liệu</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Cột phải: Xem trước & Kết quả -->
+                        <div class="preview-column">
+                            <!-- Bảng tóm tắt tài chính -->
+                            <div class="card summary-card">
+                                <div class="card-header">
+                                    <h3>📊 Bảng Tóm Tắt Chi Phí</h3>
+                                    <span class="badge badge-green" id="shipping-badge">Freeship khi ≥ 500k</span>
+                                </div>
+                                <div class="summary-lines">
+                                    <div class="summary-line">
+                                        <span>Tạm tính (Subtotal):</span>
+                                        <strong id="sum-subtotal">0 đ</strong>
+                                    </div>
+                                    <div class="summary-line discount-line">
+                                        <span>Giảm giá (Voucher):</span>
+                                        <strong id="sum-discount">-0 đ</strong>
+                                    </div>
+                                    <div class="summary-line">
+                                        <span>Phí vận chuyển:</span>
+                                        <strong id="sum-shipping">30.000 đ</strong>
+                                    </div>
+                                    <div class="summary-line total-line">
+                                        <span>TỔNG THANH TOÁN:</span>
+                                        <span class="total-price" id="sum-total">30.000 đ</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Kết quả thực thi Use Case -->
+                            <div class="card result-card">
+                                <div class="card-header">
+                                    <h3>⚡ Kết Quả Thực Thi (PlaceOrderService)</h3>
+                                </div>
+                                <div id="order-result-box" class="result-placeholder">
+                                    <div class="empty-state">
+                                        <span class="empty-icon">🛒</span>
+                                        <p>Nhập thông tin đơn hàng và bấm <b>Xác Nhận Đặt Hàng</b> để xem phản hồi của hệ thống.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Danh sách kho hàng hiện tại -->
+                            <div class="card stock-card">
+                                <div class="card-header">
+                                    <h3>🏢 Tồn Kho Mỹ Phẩm Tại Cửa Hàng</h3>
+                                </div>
+                                <div id="stock-display" class="stock-grid">
+                                    <!-- Rendered dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================================== -->
+                <!-- TAB 2: ÁP DỤNG VOUCHER (APPLY VOUCHER) -->
+                <!-- ============================================== -->
+                <section id="voucher-panel" class="tab-panel">
+                    <div class="banner cyan-banner">
+                        <div class="banner-content">
+                            <span class="banner-badge cyan">FEATURE: BEAUTY VOUCHERS</span>
+                            <h2>Áp dụng mã ưu đãi mua sắm mỹ phẩm & chăm sóc da</h2>
+                            <p>Kiểm tra voucher giảm giá theo %, voucher tiền mặt cố định, điều kiện mua mỹ phẩm tối thiểu và chiết khấu làm đẹp.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid-layout">
+                        <!-- Form Voucher -->
+                        <div class="card form-card">
+                            <div class="card-header">
+                                <h3>🌸 Áp Dụng Mã Ưu Đãi Mỹ Phẩm</h3>
+                                <span class="tag">Beauty Voucher</span>
+                            </div>
+
+                            <form id="voucher-form">
+                                <div class="form-group">
+                                    <label>Mã đơn hàng mỹ phẩm</label>
+                                    <input type="text" id="voucher-order-id" value="ORD-001" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Giá trị đơn hàng (VNĐ)</label>
+                                    <input type="number" id="voucher-order-amount" value="1000000" min="1" step="1000" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Mã Voucher làm đẹp</label>
+                                    <input type="text" id="voucher-input-code" value="SALE10" placeholder="VD: SALE10, FIXED50, BIGSALE" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Trạng thái đơn hàng</label>
+                                    <select id="voucher-order-status">
+                                        <option value="ACTIVE" selected>ACTIVE (Đang hoạt động - Hợp lệ)</option>
+                                        <option value="PAID">PAID (Đã thanh toán - Từ chối)</option>
+                                        <option value="CANCELLED">CANCELLED (Đã hủy - Từ chối)</option>
+                                    </select>
+                                </div>
+
+                                <div class="quick-vouchers">
+                                    <label>💡 Mã giảm giá có sẵn trong hệ thống (Click để chọn nhanh):</label>
+                                    <div class="voucher-tags" id="quick-voucher-list">
+                                        <!-- Rendered dynamically -->
+                                    </div>
+                                </div>
+
+                                <div class="form-actions">
+                                    <button type="submit" class="btn-primary" id="btn-submit-voucher">
+                                        <span>Áp Dụng Mã Giảm Giá</span>
+                                        <span class="arrow">→</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Cột kết quả Voucher -->
+                        <div class="preview-column">
+                            <div class="card result-card">
+                                <div class="card-header">
+                                    <h3>🎯 Kết Quả Phản Hồi (ApplyVoucherService)</h3>
+                                </div>
+                                <div id="voucher-result-box" class="result-placeholder">
+                                    <div class="empty-state">
+                                        <span class="empty-icon">🎟️</span>
+                                        <p>Nhập mã voucher và giá trị đơn hàng rồi bấm <b>Áp Dụng Mã Giảm Giá</b>.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bảng thông tin kho Voucher -->
+                            <div class="card stock-card">
+                                <div class="card-header">
+                                    <h3>📋 Danh Mục Voucher Hiện Có Trong Hệ Thống</h3>
+                                </div>
+                                <div class="voucher-table-wrap">
+                                    <table class="data-table" id="voucher-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Mã</th>
+                                                <th>Loại</th>
+                                                <th>Mức giảm</th>
+                                                <th>Giảm tối đa</th>
+                                                <th>Đơn tối thiểu</th>
+                                                <th>Lượt còn</th>
+                                                <th>Trạng thái</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="voucher-table-body">
+                                            <!-- Rendered dynamically -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
